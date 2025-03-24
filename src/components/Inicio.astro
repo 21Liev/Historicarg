@@ -1,0 +1,290 @@
+---
+import 'leaflet/dist/leaflet.css'; // Asegúrate de que los estilos de Leaflet están siendo importados
+import L from 'leaflet'; // Asegúrate de importar Leaflet
+---
+<!--------------------------- Seccion para el titulo -------------------------------->
+<section>
+  <div class="flex items-center justify-center mb-10 mt-6">
+    <h1 class="font-bold mr-2 text-9xl mt-15 text-[#fefdff]">HISTORICARG</h1>
+    <img src="https://images.emojiterra.com/twitter/v14.0/512px/1f1e6-1f1f7.png" alt="Icono bandera argentina" class="w-35 h-35 mt-17 ml-15"/>
+  </div>
+</section>
+<!--------------------------- Seccion para el titulo(fin) -------------------------------->
+<!---------------------------  primera isla -------------------------------->
+  <div class="text-2xl text-center mt-17 mb-10 text-[#fefdff] font-medium bg-[#665645bd] rounded-2xl p-7 max-w-7xl mx-auto shadow-xl">
+    <h2>¡Mapa interactivo de eventos historicos de Argentina!</h2>
+  </div>
+<!---------------------------  primera isla (fin)-------------------------------->
+<!--------------------------- Seccion para islas(mapa / leyenda) -------------------------------->
+<section>
+  <div class="flex justify-center space-x-8 mt-12">
+    <!-------------------- Carta del mapa ------------------->
+    <div class="card bg-[#665645] p-6 rounded-lg shadow-2xl shadow-black w-[1200px] h-[900px] flex justify-center pb-8">
+      <div id="mapa" class="w-full h-full rounded-lg shadow-lg]"></div> <!-- Mapa aquí -->
+    </div>
+    <!-------------- Carta de la leyenda ----------------->
+    <div class="card bg-[#665645] p-6 rounded-lg shadow-2xl shadow-black w-[400px] h-[600px] text-amber-50">
+      <!-------------- Titulo ----------------->
+      <div class="flex items-center justify-center mb-10 mt-6">
+        <h3 class="font-bold mr-2 text-4xl">LEYENDA</h3>
+        <img src="https://img.icons8.com/?size=100&id=DkE3DG0l6O8s&format=png&color=000000" alt="Icono de leyenda" class="w-10 h-10 mb" />
+      </div>
+      <div class="space-y-4">
+        <!----------- Icono 1: Batallas ------------->
+        <div class="flex items-center space-x-3">
+          <img src="https://img.icons8.com/?size=100&id=lRaI3B0GhAgD&format=png&color=000000" alt="Icono Batalla" class="w-10 h-10 shadow bg-[#887b6d2d] rounded" />
+          <span class="text-lg font-medium">Batallas historicas</span>
+        </div>  
+        <!----------- Icono 2: Ciencia ------------->
+        <div class="flex items-center space-x-3">
+          <img src="https://img.icons8.com/?size=100&id=t6k3JwSBYxIj&format=png&color=000000" alt="Icono Ciencia" class="w-10 h-10 shadow bg-[#887b6d2d] rounded" />
+          <span class="text-lg font-medium">Descubrimientos cientificos</span>
+        </div>
+        <!----------- Icono 3: Deportivas ------------->
+        <div class="flex items-center space-x-3">
+          <img src="https://img.icons8.com/?size=100&id=AB2p6ZvgGb9E&format=png&color=000000" alt="Icono Deportes" class="w-10 h-10 shadow bg-[#887b6d2d] rounded" />
+          <span class="text-lg font-medium">Hazañas deportivas</span>
+        </div>
+        <!----------- Icono 4: Nobels ------------->
+        <div class="flex items-center space-x-3">
+          <img src="https://img.icons8.com/?size=100&id=108789&format=png&color=000000" alt="Icono Premios" class="w-10 h-10 shadow bg-[#887b6d2d] rounded" />
+          <span class="text-lg font-medium">Premios Nobels</span>
+        </div>
+        <!----------- Icono 5: Diplomacia ------------->
+        <div class="flex items-center space-x-3">
+          <img src="https://img.icons8.com/?size=100&id=ZUPIPzBFPl1X&format=png&color=000000" alt="Icono Batalla Maipú" class="w-10 h-10 shadow bg-[#887b6d2d] rounded" />
+          <span class="text-lg font-medium">Eventos internacionales historicos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!--------------------------- Seccion para islas(mapa / leyenda) (fin-------------------------------->
+<!---------------------------  Segunda isla -------------------------------->
+<section>
+  <div class="text-2xl text-center mt-17 mb-10 text-[#fefdff] font-medium bg-[#665645bd] rounded-2xl p-7 max-w-7xl mx-auto shadow-xl">
+    <h2>¡Utilizamos como princial referencia a Wikipedia!</h2>
+  </div>
+</section>
+<!---------------------------  Segunda isla(fin) -------------------------------->
+<!---------------------------  Footer -------------------------------->
+<footer class="bg-[#3f362cd3] rounded-lg shadow-sm m-4 text-center">
+  <div class="w-full mx-auto max-w-screen-xl p-4 animate-bounce">
+    <span class="text-sm text-white animate-bounce">© ¡Sin derechos!</span>
+  </div>
+</footer> 
+<!---------------------------  Footer (fin)-------------------------------->
+
+<script type="module" is:inline>
+window.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('mapa').setView([-38.4161, -63.6167], 5); // Coordenadas centradas en Argentina
+/////////////////////////////////// Mapa y estilo///////////////////////////////////
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CartoDB</a>'
+    }).addTo(map);
+/////////////////////////////////// icono de batallas ///////////////////////////////////
+    var customIcon = L.icon({
+        iconUrl: 'https://img.icons8.com/?size=100&id=lRaI3B0GhAgD&format=png&color=000000',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+/////////////////////////////////// icono de ciencia ///////////////////////////////////
+    var scienceIcon = L.icon({
+        iconUrl: 'https://img.icons8.com/?size=100&id=t6k3JwSBYxIj&format=png&color=000000',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+/////////////////////////////////// icono de deporte ///////////////////////////////////
+    var sportsIcon = L.icon({
+        iconUrl: "https://img.icons8.com/?size=100&id=AB2p6ZvgGb9E&format=png&color=000000",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+/////////////////////////////////// icono de Nobel ///////////////////////////////////
+    var nobelIcon = L.icon({
+      iconUrl: "https://img.icons8.com/?size=100&id=108789&format=png&color=000000",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+/////////////////////////////////// icono de diplomacia ///////////////////////////////////
+    var diplomaciaIcon = L.icon({
+      iconUrl: "https://img.icons8.com/?size=100&id=ZUPIPzBFPl1X&format=png&color=000000",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
+    });
+///////////////Función para agrandar y reducir los iconos con animación//////////////
+    function addIconAnimation(marker) {
+        const markerElement = marker.getElement();
+        // Añadir transición CSS al elemento del marcador
+        markerElement.style.transition = "transform 0.3s ease"; // Cambiar el tamaño suavemente
+        markerElement.addEventListener('mouseover', function() {
+            // Ampliar el tamaño del marcador
+            marker.setIcon(L.icon({
+                iconUrl: marker.options.icon.options.iconUrl,
+                iconSize: [48, 48], // Tamaño más grande
+                iconAnchor: [24, 48],
+                popupAnchor: [0, -48]
+            }));
+        });
+        markerElement.addEventListener('mouseout', function() {
+            // Volver al tamaño original
+            marker.setIcon(L.icon({
+                iconUrl: marker.options.icon.options.iconUrl,
+                iconSize: [32, 32], // Tamaño original
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
+            }));
+        });
+    }
+///////////////Información de las batallas //////////////
+      var battleData = [
+        { lat: -26.8167, lon: -65.2167, name: 'Batalla de Tucumán', date: '1812', description: 'Victoria crucial en la guerra de independencia', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Batalla_de_Tucum%C3%A1n.jpg/300px-Batalla_de_Tucum%C3%A1n.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Tucum%C3%A1n' },
+        { lat: -24.1851, lon: -65.2969, name: 'Batalla de Salta', date: '1813', description: 'Batalla decisiva para la independencia de Argentina', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Battle_of_Salta.jpg/300px-Battle_of_Salta.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Salta' },
+        { lat: -33.9333, lon: -70.5833, name: 'Batalla de Maipú', date: '1818', description: 'Victoria final para asegurar la independencia de Chile y Argentina', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/BatallaDeMaipu.jpg/300px-BatallaDeMaipu.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Maip%C3%BA' },
+        { lat: -13.2667, lon: -75.8667, name: 'Batalla de Junín', date: '1824', description: 'Parte de las Guerras de Independencia en Sudamérica', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Batalla_de_Jun%C3%ADn.jpg/300px-Batalla_de_Jun%C3%ADn.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Jun%C3%ADn' },
+        { lat: -13.1667, lon: -71.5667, name: 'Batalla de Ayacucho', date: '1824', description: 'Decisiva en la lucha por la independencia sudamericana', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Batalla_de_Ayacucho_by_Mart%C3%ADn_Tovar_y_Tovar_%281827_-_1902%29.jpg/300px-Batalla_de_Ayacucho_by_Mart%C3%ADn_Tovar_y_Tovar_%281827_-_1902%29.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Ayacucho' },
+        { lat: -32.9394, lon: -60.6517, name: 'Batalla de Las Piedras', date: '1811', description: 'Victoria crucial durante las Guerras de Independencia', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Battle_of_Las_Piedras.jpg/300px-Battle_of_Las_Piedras.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Las_Piedras' },
+        { lat: -33.8891, lon: -60.7264, name: 'Batalla de Cepeda', date: '1824', description: 'Batalla en el contexto de las luchas civiles internas', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkQDcIGLxUuOCF2TQwWBdJ8u79WTxQHunfGA&s', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Cepeda' },
+        { lat: -34.7195, lon: -58.4627, name: 'Batalla de Caseros', date: '1852', description: 'Decisiva para la organización nacional de Argentina', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Caseros.jpg/330px-Caseros.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Caseros' },
+        { lat: -34.9472, lon: -58.1872, name: 'Batalla de Vuelta de Obligado', date: '1845', description: 'Resistencia argentina contra una invasión anglo-francesa', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Batalla_de_la_Vuelta_de_Obligado.jpg/300px-Batalla_de_la_Vuelta_de_Obligado.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Vuelta_de_Obligado' },
+        { lat: -29.0833, lon: -58.6333, name: 'Batalla de Curupaytí', date: '1866', description: 'Victoria en la Guerra de la Triple Alianza', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Batalhacurupaiti.jpg/300px-Batalhacurupaiti.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Curupayt%C3%AD' },
+        { lat: -34.8528, lon: -58.6422, name: 'Batalla de Pavón', date: '1861', description: 'Decisiva en la lucha entre federales y unitarios', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Batalla_de_Pavon.jpg/330px-Batalla_de_Pavon.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Pav%C3%B3n' },
+        { lat: -33.1594, lon: -60.5975, name: 'Batalla de la Tablada', date: '1829', description: 'Batalla en el marco de las guerras civiles argentinas', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Ilustraci%C3%B3n_de_la_Batalla_de_Tarija.jpg/300px-Ilustraci%C3%B3n_de_la_Batalla_de_Tarija.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_la_Tablada' },
+        { lat: -32.8900, lon: -60.1390, name: 'Batalla de San Lorenzo', date: '1813', description: 'Victoria importante durante la lucha por la independencia', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Segundo_Combate_de_San_Lorenzo_%281846%29_-_Placa_conmemorativa_en_San_Lorenzo.JPG/300px-Segundo_Combate_de_San_Lorenzo_%281846%29_-_Placa_conmemorativa_en_San_Lorenzo.JPG', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_San_Lorenzo' },
+        { lat: -29.0, lon: -60.5, name: 'Batalla de Chacabuco', date: '1817', description: 'Batalla decisiva en la lucha por la independencia de Chile', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Batalla_de_Chacabuco_-_Pedro_Subercaseaux_%28cropped%29.jpg/300px-Batalla_de_Chacabuco_-_Pedro_Subercaseaux_%28cropped%29.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Batalla_de_Chacabuco' },
+        ];
+///////////////Información de ciencias //////////////        
+      var scienceData = [
+        { lat: -34.6037, lon: -58.3816, name: 'Descubrimiento de la enfermedad de Chagas', date: '1909', description: 'Carlos Chagas descubrió la enfermedad de Chagas en Argentina.', imageUrl: 'https://www.gob.mx/cms/uploads/action_program/main_image/4757/post_chagas.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Enfermedad_de_Chagas' },
+        { lat: -38.4161, lon: -63.5000, name: 'Desarrollo de la vacuna contra la fiebre hemorrágica argentina', date: '1990', description: 'Creación de la primera vacuna efectiva contra esta enfermedad.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Arenaviridae-Schema.png/320px-Arenaviridae-Schema.png', wikiLink: 'https://es.wikipedia.org/wiki/Fiebre_hemorr%C3%A1gica_argentina' },
+        { lat: -34.9205, lon: -57.9536, name: 'Descubrimiento del fósil del Argentinosaurus', date: '1987', description: 'Uno de los dinosaurios más grandes descubiertos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Argentinosaurus_BW.jpg/280px-Argentinosaurus_BW.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Argentinosaurus' },
+        { lat: -32.9468, lon: -60.6393, name: 'Desarrollo del bypass coronario', date: '1967', description: 'René Favaloro desarrolló el bypass coronario en Argentina.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Blausen_0151_CABG_02-es.png/250px-Blausen_0151_CABG_02-es.png', wikiLink: 'https://es.wikipedia.org/wiki/Baip%C3%A1s_coronario' },
+        { lat: -36.7765, lon: -59.8586, name: 'Descubrimiento del Gliptodonte', date: '1823', description: 'Descubrimiento de un mamífero prehistórico gigante.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Glyptodon-1.jpg/250px-Glyptodon-1.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Glyptodon' },
+        { lat: -42.7686, lon: -65.0385, name: 'Descubrimiento del Gigantoraptor', date: '1995', description: 'Descubrimiento de un dinosaurio carnívoro en Argentina.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Gigantoraptor_BW.jpg/250px-Gigantoraptor_BW.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Gigantoraptor' },
+        { lat: -31.4201, lon: -64.1888, name: 'Desarrollo del primer reactor nuclear en Latinoamérica', date: '1957', description: 'Argentina desarrolló el primer reactor nuclear de la región.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8b/Fachada_antigua_del_Centro_de_F%C3%ADsica.jpg', wikiLink: 'https://es.wikipedia.org/wiki/CNEA' },
+        { lat: -50.3379, lon: -72.2648, name: 'Hallazgo del Perito Moreno', date: '1877', description: 'Exploración y documentación del glaciar Perito Moreno.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Perito_Moreno_Glacier_2023.jpg/320px-Perito_Moreno_Glacier_2023.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Glaciar_Perito_Moreno' },
+        { lat: -37.9994, lon: -57.5522, name: 'Descubrimiento del Kronosaurus', date: '1931', description: 'Uno de los mayores reptiles marinos prehistóricos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Kronosaurus.jpg/250px-Kronosaurus.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Kronosaurus' },
+        { lat: -33.0000, lon: -68.5000, name: 'Producción de nanotecnología en Argentina', date: '2005', description: 'Avances en nanotecnología en Mendoza.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRInKp6LTOVgSF1-8HNfxZ3XgkbYOKqdPo6QQ&s', wikiLink: 'https://es.wikipedia.org/wiki/Fundaci%C3%B3n_Argentina_de_Nanotecnolog%C3%ADa' }
+        ];
+///////////////Información de deportes //////////////        
+      var sports = [
+        { lat: -34.5452, lon: -58.4497, name: 'Mundial 1978: Argentina campeón', date: '1978', description: 'Argentina ganó su primer Mundial de fútbol en 1978.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Logo_Mundial_78.svg/330px-Logo_Mundial_78.svg.png', wikiLink: 'https://es.wikipedia.org/wiki/Copa_Mundial_de_F%C3%BAtbol_de_1978',},
+        { lat:  19.4326, lon: -99.1332, name: 'Mundial 1986: Maradona y la mano de Dios', date: '1986', description: 'Argentina se consagró campeona en México 1986, con la famosa "Mano de Dios" de Maradona.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Maradona_cup_azteca.jpg/300px-Maradona_cup_azteca.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Copa_Mundial_de_F%C3%BAtbol_de_1986',},
+        { lat:  37.9838, lon:  23.7275, name: 'Olimpiadas de 2004: Fútbol Olímpico', date: '2004', description: 'Argentina ganó la medalla de oro en fútbol en los Juegos Olímpicos de Atenas.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Panathinaikos_Inter_CL2008_09_b.jpg/300px-Panathinaikos_Inter_CL2008_09_b.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Anexo:Torneo_masculino_de_f%C3%BAtbol_en_los_Juegos_Ol%C3%ADmpicos_de_Atenas_2004',},
+        { lat: -23.5505, lon: -46.6333, name: 'Copa América 1993: Argentina campeona', date: '1993', description: 'Argentina ganó la Copa América en 1993 después de 32 años sin ganar el torneo.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Estadio_Monumental_Banco_Pichincha.jpg/300px-Estadio_Monumental_Banco_Pichincha.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Copa_Am%C3%A9rica_1993',},        
+        { lat:  60.1692, lon:  24.9384, name: 'Olimpiadas de 1952: Medalla de oro en remo', date: '1952', description: 'El equipo de remo de Argentina ganó su primera medalla de oro en los Juegos Olímpicos de Helsinki.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Guerrero-Capozzo.jpg/200px-Guerrero-Capozzo.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Argentina_en_los_Juegos_Ol%C3%ADmpicos_de_Helsinki_1952',},
+        { lat:  37.5665, lon: 126.9780, name: 'Olimpiadas de 1988: Medalla de oro en tenis', date: '1988', description: 'Argentina logro su éxito en los Juegos Olímpicos de Seúl con una medalla de plata en tenis.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Gab2-sabatini-wikipedia.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Argentina_en_los_Juegos_Ol%C3%ADmpicos_de_Se%C3%BAl_1988#:~:text=Los%20atletas%20argentinos%20en%20Se%C3%BAl,obtuvo%20un%205.%C2%BA%20lugar.',},
+        { lat: -34.9037, lon: -58.4816, name: 'Panamericanos 1951: Medalla de oro en boxeo', date: '1951', description: 'Argentina obtuvo una medalla de oro en boxeo en los Juegos Panamericanos de Buenos Aires.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Juegospanamericanos_1951_poster.jpg/320px-Juegospanamericanos_1951_poster.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Juegos_Panamericanos_de_1951',},
+        { lat: 45.77166, lon: 15.942833, name: 'Copa Davis 2016: Argentina campeona', date: '2016', description: 'Argentina ganó la Copa Davis en 2016, su primer título en la historia del torneo.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Argentina_team_Davis_Cup_2016_Winner.jpg/330px-Argentina_team_Davis_Cup_2016_Winner.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Copa_Davis_2016',},
+        { lat:  39.904,  lon:  116.4075, name: 'Olimpiadas 2008: Medalla en ciclismo', date: '2008', description: 'Argentina ganó la medalla de oro en ciclismo en los Juegos Olímpicos de Pekín.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/P%C3%A9rez-Curuchet.jpg/200px-P%C3%A9rez-Curuchet.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Argentina_en_los_Juegos_Ol%C3%ADmpicos_de_Pek%C3%ADn_2008',},
+        { lat:  25.42,   lon:  51.49, name: 'Mundial de Catar 2022', date: '2022', description: 'Argentina ganó su tercer mundial de la mano de Messi', imageUrl: 'https://www.lanacion.com.ar/resizer/v2/-BH4BO72RNRER7BZ34SJV4IKUIY.jpg?auth=879719e2b658dad2119f5891f8824c22f03952ccbc1a0044ace84727e96cdba1&width=420&height=630&quality=70&smart=true', wikiLink: 'https://es.wikipedia.org/wiki/Anexo:Final_de_la_Copa_Mundial_de_F%C3%BAtbol_de_2022',},
+        ];
+///////////////Información de nobels //////////////                
+      var nobels = [
+        { lat:  59.3293, lon:  18.0686, name: 'Premio Nobel de la Paz (1980): Adolfo Pérez Esquivel', date: '1980', description: 'Adolfo Pérez Esquivel recibió el Premio Nobel de la Paz por su defensa de los derechos humanos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Adolfo_P%C3%A9rez_Esquivel_1983b.jpg/220px-Adolfo_P%C3%A9rez_Esquivel_1983b.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Adolfo_P%C3%A9rez_Esquivel',},
+        { lat:  59.5293, lon:  17.0686, name: 'Premio Nobel de Medicina (1947): Bernardo Houssay', date: '1947', description: 'Bernardo Houssay ganó el Premio Nobel de Medicina por su investigación sobre la fisiología del sistema endocrino.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Bernardo_Alberto_Houssay.jpg/220px-Bernardo_Alberto_Houssay.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Bernardo_Houssay',},
+        { lat:  59.7293, lon:  18.0586, name: 'Premio Nobel de Química (1970): Luis Federico Leloir', date: '1970', description: 'Luis Federico Leloir recibió el Premio Nobel de Química por su descubrimiento sobre la bioquímica de los carbohidratos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Luis_Federico_Leloir_-_young.jpg/220px-Luis_Federico_Leloir_-_young.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Luis_Federico_Leloir',},
+        { lat:  59.5293, lon:  18.1686, name: 'Premio Nobel de Literatura (1979): Adolfo Bioy Casares', date: '1979', description: 'Adolfo Bioy Casares recibió el Premio Nobel de Literatura por su obra literaria innovadora.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adolfo_Bioy_Casares_1968.png/220px-Adolfo_Bioy_Casares_1968.png', wikiLink: 'https://es.wikipedia.org/wiki/Adolfo_Bioy_Casares',},
+        { lat:  59.5893, lon:  18.6486, name: 'Premio Nobel de la Paz (1995): Carlos Saavedra Lamas', date: '1995', description: 'Carlos Saavedra Lamas recibió el Premio Nobel de la Paz por su trabajo en la mediación internacional.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Carlos_Saavedra_Lamas.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Carlos_Saavedra_Lamas',},
+        { lat:  59.5693, lon:  18.5686, name: 'Premio Nobel de la Paz (1960): Martín Miguel de Güemes', date: '1960', description: 'Martín Miguel de Güemes fue postulado al Premio Nobel de la Paz por su lucha por la independencia de Argentina.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Mart%C3%ADn_Miguel_de_G%C3%BCemes_1.jpg/250px-Mart%C3%ADn_Miguel_de_G%C3%BCemes_1.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Mart%C3%ADn_Miguel_de_G%C3%BCemes',},
+        { lat:  59.5493, lon:  18.7686, name: 'Premio Nobel de Economía (2000): César Milstein', date: '2000', description: 'César Milstein ganó el Premio Nobel de Economía por sus descubrimientos sobre los anticuerpos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Eduardo_Galeano_ltk_%28cropped%29.jpg/220px-Eduardo_Galeano_ltk_%28cropped%29.jpg', wikiLink: 'https://es.wikipedia.org/wiki/C%C3%A9sar_Milstein',},
+        { lat:  59.5093, lon:  18.1686, name: 'Premio Nobel de Literatura (1984): Jorge Luis Borges', date: '1984', description: 'Jorge Luis Borges recibió el Premio Nobel de Literatura por su monumental obra literaria.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Jorge_Luis_Borges_1951%2C_by_Grete_Stern.jpg/220px-Jorge_Luis_Borges_1951%2C_by_Grete_Stern.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Jorge_Luis_Borges',},
+        { lat:  59.5193, lon:  18.8686, name: 'Premio Nobel de la Paz (1998): Eduardo Galeano', date: '1998', description: 'Eduardo Galeano fue galardonado por su lucha por la justicia y los derechos humanos.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Eduardo_Galeano.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Eduardo_Galeano',},
+        ];
+///////////////Información de diplomacia //////////////                
+      var diplomacia = [
+        { lat:  41.904,  lon:  12.453, name: 'Tratado de Paz y Amistad con Chile (1984)', date: '1984', description: 'Argentina y Chile firmaron este tratado para resolver las disputas territoriales en el Canal Beagle.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Tratado_Argentina_Chile_1984.jpg/290px-Tratado_Argentina_Chile_1984.jpg', wikiLink: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Tratado_Argentina_Chile_1984.jpg/290px-Tratado_Argentina_Chile_1984.jpg',},
+        { lat: -51.75, lon: -59, name: 'Guerra de las Malvinas y Diplomacia Internacional (1982)', date: '1982', description: 'La guerra con el Reino Unido sobre la soberanía de las Islas Malvinas y la diplomacia posterior que buscó una solución pacífica.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Infantes_de_Marina%2C_Islas_Malvinas%2C_1982._AR-AGN-AGAS01-rg-537-345487.jpg/250px-Infantes_de_Marina%2C_Islas_Malvinas%2C_1982._AR-AGN-AGAS01-rg-537-345487.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Guerra_de_las_Malvinas',},
+        { lat:  41.5,  lon: -5.00138, name: 'Tratado de Tordesillas (1494)', date: '1494', description: 'Este tratado entre España y Portugal dividió el mundo en áreas de influencia para la colonización.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Spaintordesillacasasdeltratado01.jpg/250px-Spaintordesillacasasdeltratado01.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Tratado_de_Tordesillas',},
+        { lat: 	40.443611, lon:-3.736944, name: 'Pacto de la Moncloa (1977)', date: '1977', description: 'Argentina, junto con otros países latinoamericanos, apoyó el proceso de transición democrática en España.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Palacio_de_la_Moncloa%2C_Madrid%2C_Espa%C3%B1a_edited.jpg/220px-Palacio_de_la_Moncloa%2C_Madrid%2C_Espa%C3%B1a_edited.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Pactos_de_la_Moncloa',},
+        { lat: -38, lon:  -57.60, name: 'Cumbre de las Américas (2005)', date: '2005', description: 'Argentina participó activamente en la Cumbre de las Américas, tratando temas como el libre comercio y la cooperación regional.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Head_of_States_at_the_Americas_Summit_in_Mar_del_Plata_Argentina_2005.jpg/300px-Head_of_States_at_the_Americas_Summit_in_Mar_del_Plata_Argentina_2005.jpg', wikiLink: 'https://es.wikipedia.org/wiki/IV_Cumbre_de_las_Am%C3%A9ricas',},
+        { lat: -34.7137, lon: -58.3416, name: 'Crisis del 2001', date: '2001', description: 'fue una crisis política, económica, social e institucional, potenciada por una revuelta popular generalizada bajo el lema "¡Que se vayan todos!"', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Obelisco_20Dic01.jpg/220px-Obelisco_20Dic01.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Crisis_de_diciembre_de_2001_en_Argentina',},    
+        { lat: -30.0335, lon: -51.2300, name: 'Acuerdo de Integración Argentina-Brasil (1988)', date: '1988', description: 'Este acuerdo fortaleció la integración económica entre Argentina y Brasil, clave para la creación del Mercosur.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Alegor%C3%ADa_Brasil_y_Argentina.jpg/200px-Alegor%C3%ADa_Brasil_y_Argentina.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Relaciones_Argentina-Brasil',},        
+        { lat:  48.8566, lon:  2.3522, name: 'Cumbre COP21 de París (2015)', date: '2015', description: 'Argentina participó activamente en la COP21, firmando el acuerdo climático global para reducir las emisiones de gases de efecto invernadero.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/ParisAgreement.svg/250px-ParisAgreement.svg.png', wikiLink: 'https://es.wikipedia.org/wiki/Acuerdo_de_Par%C3%ADs',},
+        { lat: -34.6080, lon: -58.3702, name: 'Recuperación de la democracia en la Argentina', date: '1983', description: 'En 1983, llegó a su fin la dictadura cívico-militar autodenominada "Proceso de Reorganización Nacional", que gobernaba Argentina desde el golpe de Estado de 1976', imageUrl: 'https://www.cultura.gob.ar/media/uploads/apertura_4J1d8pv.jpg', wikiLink: 'https://es.wikipedia.org/wiki/Recuperaci%C3%B3n_de_la_democracia_en_la_Argentina',},
+        { lat: 48.208333, lon: 16.3725, name: 'Acuerdo de Viena sobre el Núcleo Nuclear (1972)', date: '1972', description: 'Argentina fue parte activa en este acuerdo internacional sobre la no proliferación de armas nucleares y el uso pacífico de la energía nuclear.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/NPT_parties.svg/500px-NPT_parties.svg.png', wikiLink: 'https://es.wikipedia.org/wiki/Tratado_de_No_Proliferaci%C3%B3n_Nuclear',},
+        ];
+////////////Agregar los marcadores de las batallas//////////
+    battleData.forEach(battle => {
+        var marker = L.marker([battle.lat, battle.lon], { icon: customIcon }).addTo(map)
+            .bindPopup(`
+                <div class="bg-[#f5f2da] p-4 rounded-lg shadow-xl w-60">
+                    <b class="text-xl text-gray-800">${battle.name}</b><br>
+                    <b class="text-sm text-gray-700">FECHA:</b> <span class="text-gray-700 font-bold">${battle.date}</span><br>
+                    <b class="text-sm text-gray-700">DESCRIPCIÓN:</b><br> <span class="text-gray-700 font-bold">${battle.description}</span><br>
+                    <img src="${battle.imageUrl}" alt="${battle.name}" class="mt-3 rounded-md w-full h-auto" />
+                    <br>
+                    <a href="${battle.wikiLink}" target="_blank" class="text-blue-500 hover:underline mt-3 block">Más información en Wikipedia</a>
+                </div>
+            `);
+        addIconAnimation(marker); // Aplicar la animación al marcador
+    });
+////////////Agregar los marcadores de las ciencias//////////    
+    scienceData.forEach(discovery => {
+        var marker = L.marker([discovery.lat, discovery.lon], { icon: scienceIcon }).addTo(map)
+            .bindPopup(`
+                <div class="bg-[#daf2f5] p-4 rounded-lg shadow-xl w-60">
+                    <b class="text-xl text-gray-800">${discovery.name}</b><br>
+                    <b class="text-sm text-gray-700">FECHA:</b> <span class="text-gray-700 font-bold">${discovery.date}</span><br>
+                    <b class="text-sm text-gray-700">DESCRIPCIÓN:</b><br> <span class="text-gray-700 font-bold">${discovery.description}</span><br>
+                    <img src="${discovery.imageUrl}" alt="${discovery.name}" class="mt-3 rounded-md w-full h-auto" />
+                    <br>
+                    <a href="${discovery.wikiLink}" target="_blank" class="text-blue-500 hover:underline mt-3 block">Más información en Wikipedia</a>
+                </div>
+            `);
+        addIconAnimation(marker); // Aplicar la animación al marcador
+    });
+////////////Agregar los marcadores de los deportes//////////    
+    sports.forEach(event => {
+        var marker = L.marker([event.lat, event.lon], { icon: sportsIcon }).addTo(map)
+            .bindPopup(`
+                <div class="bg-[#ffe46e] p-4 rounded-lg shadow-xl w-60">
+                    <b class="text-xl text-gray-800">${event.name}</b><br>
+                    <b class="text-sm text-gray-700">FECHA:</b> <span class="text-gray-700 font-bold">${event.date}</span><br>
+                    <b class="text-sm text-gray-700 mt-2">DESCRIPCIÓN:</b><br> <span class="text-gray-700 font-bold">${event.description}</span><br>
+                    <img src="${event.imageUrl}" alt="${event.name}" class="mt-3 rounded-md w-full h-auto" />
+                    <br>
+                    <a href="${event.wikiLink}" target="_blank" class="text-blue-500 hover:underline mt-3 block">Más información en Wikipedia</a>
+                </div>
+            `);
+        addIconAnimation(marker); // Aplicar la animación al marcador
+    });
+////////////Agregar los marcadores de los nobels//////////    
+    nobels.forEach(nobel => {
+        var marker = L.marker([nobel.lat, nobel.lon], { icon: nobelIcon }).addTo(map)
+            .bindPopup(`
+                <div class="bg-[#f8a3a3] p-4 rounded-lg shadow-xl w-60">
+                    <b class="text-xl text-gray-800">${nobel.name}</b><br>
+                    <b class="text-sm text-gray-700">FECHA:</b> <span class="text-gray-700 font-bold">${nobel.date}</span><br>
+                    <b class="text-sm text-gray-700">DESCRIPCIÓN:</b><br> <span class="text-gray-700 font-bold">${nobel.description}</span><br>
+                    <img src="${nobel.imageUrl}" alt="${nobel.name}" class="mt-3 rounded-md w-full h-auto" />
+                    <br>
+                    <a href="${nobel.wikiLink}" target="_blank" class="text-blue-500 hover:underline mt-3 block">Más información en Wikipedia</a>
+                </div>
+            `);
+        addIconAnimation(marker); // Aplicar la animación al marcador
+    });
+////////////Agregar los marcadores de las diplomacias//////////    
+    diplomacia.forEach(evento => {
+    var marker = L.marker([evento.lat, evento.lon], { icon: diplomaciaIcon }).addTo(map)
+        .bindPopup(`
+            <div class="bg-[#ead3ff] p-4 rounded-lg shadow-xl w-60">
+                <b class="text-xl text-gray-800">${evento.name}</b><br>
+                <b class="text-sm text-gray-700">FECHA:</b> <span class="text-gray-700 font-bold">${evento.date}</span><br>
+                <b class="text-sm text-gray-700">DESCRIPCIÓN:</b><br> <span class="text-gray-700 font-bold">${evento.description}</span><br>
+                <img src="${evento.imageUrl}" alt="${evento.name}" class="mt-3 rounded-md w-full h-auto" />
+                <br>
+                <a href="${evento.wikiLink}" target="_blank" class="text-blue-500 hover:underline mt-3 block">Más información en Wikipedia</a>
+            </div>
+        `);
+    addIconAnimation(marker); // Aplicar la animación al marcador
+});
+    }); 
+</script>
+
